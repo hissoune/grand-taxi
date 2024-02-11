@@ -21,6 +21,6 @@ class AdminSeeder extends Seeder
         'email_verified_at' => now(),
         'password' => static::$password ??= Hash::make('password'),
        ]);
-       $User->assignRole('passager','Chaufeur', 'Admin');
+       $User->assignRole('Admin');
     }
 }

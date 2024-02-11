@@ -27,7 +27,7 @@
                     @endrole
                     @role('passager')
                     <x-nav-link :href="route('passager.index')" :active="request()->routeIs('passager.index')">
-                        {{ __('passager') }}
+                        {{ __('reserver taxi') }}
                     </x-nav-link>
                     @endrole
                 </div>

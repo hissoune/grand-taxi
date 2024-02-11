@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DriverTaxiController;
+use App\Http\Controllers\horairesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,19 +24,22 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware(['auth', 'role:Chaufeur'])->group(function () {
+Route::resource('/Chaufeur',DriverTaxiController::class);
+Route::resource('/Horaire',horairesController::class);
+});
+// Route::get('/Chaufeur', function () {
+//     return view('Chaufeur.index');
+// })->middleware(['auth', 'role:Chaufeur'])->name('Chaufeur.index'); 
 
-Route::get('/Chaufeur', function () {
-    return view('Chaufeur.index');
-})->middleware(['auth', 'role:Chaufeur'])->name('Chaufeur.index'); 
-
-
+Route::middleware(['auth', 'role:passager'])->group(function () {
+    Route::resource('/passager',horairesController::class);
+    // Route::resource('/Horaire',horairesController::class);
+    });
 Route::get('/admin', function () {
     return view('admin.index');
-})->middleware(['auth', 'role:admin'])->name('admin.index'); 
+})->middleware(['auth', 'role:Admin'])->name('admin.index'); 
 
-Route::get('/passager', function () {
-    return view('passager.index');
-})->middleware(['auth', 'role:passager'])->name('passager.index'); 
 
 
 Route::middleware('auth')->group(function () {

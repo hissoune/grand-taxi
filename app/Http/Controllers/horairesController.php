@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\route;
 use App\Models\horaires;
 use Illuminate\Http\Request;
+use App\Models\driver_taxi;
+use Illuminate\Support\Facades\Auth;
 
 class horairesController extends Controller
 {
@@ -21,8 +24,14 @@ class horairesController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        //
+    {    
+        $driver = driver_taxi::where('user_id', Auth::id())->first();
+// dd($driver);
+// $dd=Auth::id();
+//         $driver=driver_taxi::find($dd);
+        // dd($driver);
+        $Routes=route::all();
+        return view('horaire.create',compact('Routes','driver'));
     }
 
     /**
@@ -30,7 +39,18 @@ class horairesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'route' => 'required',
+            'price' => 'required|numeric',
+            'driver_id'=>'required',
+        ]);
+        horaires::create([
+    'route'=>$request->route,
+    'driver_taxi_id'=>$request->driver_id,
+    'price' =>$request->price,
+
+        ]);
+        return redirect(route('Chaufeur.index'));
     }
 
     /**
@@ -55,10 +75,13 @@ class horairesController extends Controller
    // horairesController.php
 public function update(Request $request, horaires $Horaire)
 {
-    // Add logic to update the item based on the request data
-    $Horaire->update(['status' => $request->has('status') ? 'Disponible' : 'out of service']);
+//     $horcreated=$Horaire->created_at;
+//     $hordvr=driver_taxi_horaire::where('horaires.created_at','=',$horcreated)  
+//      ->join('horaires', 'horaires.id', '=', 'driver_taxi_horaires.horaire_id')->get();
+// dd($hordvr);
+//     $hordvr->update(['status' => $request->has('status') ? 'Disponible' : 'out of service']);
 
-    return redirect()->back(); 
+//     return redirect()->back(); 
 }
 
 

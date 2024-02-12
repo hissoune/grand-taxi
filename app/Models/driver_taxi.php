@@ -31,7 +31,7 @@ class driver_taxi extends Model
 
     public function horairs()
     {
-        return $this->belongsToMany(horaires::class, 'driver_taxi_horaires', 'driver_taxi_id', 'horaire_id');
+        return $this->hasMany(horaires::class,'driver_taxi_id');
     }
     
 }

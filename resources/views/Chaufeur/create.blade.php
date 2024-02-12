@@ -23,21 +23,9 @@
         <label for="image" class="block text-sm font-medium text-gray-600">image:</label>
         <input type="file" name="image" required class="mt-1 p-2 border rounded-md w-full">
     </div>
-    <div class="mb-4">
-        <label for="route" class="block text-sm font-medium text-gray-600">route:</label>
-        <select name="route" required class="mt-1 p-2 border rounded-md w-full">
-         @foreach ($Routes as $item)
-         <option value="{{ $item->id }}">{{$item->startcity->name  }}  to  {{ $item->endcity->name }}</option>
-         @endforeach
-            
-           
-        </select>
-    </div>
+   
 
-    <div class="mb-4">
-        <label for="price" class="block text-sm font-medium text-gray-600">Price:</label>
-        <input type="number" name="price" required class="mt-1 p-2 border rounded-md w-full">
-    </div>
+    
 
     <div class="mb-4">
         <label for="method_payment" class="block text-sm font-medium text-gray-600">Payment Method:</label>

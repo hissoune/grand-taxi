@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('horaires', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['disponible', 'in trip', 'out of service'])->default('out of service');
+            $table->foreignId('route')->constrained('routes');
+            $table->foreignId('driver_taxi_id')->constrained('driver_taxis');
+            $table->integer('price');
             $table->softDeletes();
             $table->timestamps();
         });

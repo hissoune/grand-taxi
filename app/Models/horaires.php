@@ -9,12 +9,15 @@ class horaires extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'status',
+      
+        'route',
+        'price',
+        'driver_taxi_id',
     ];
 
     public function drivert()
 {
-    return $this->belongsToMany(driver_taxi::class, 'driver_taxi_horaires', 'horaire_id', 'driver_taxi_id');
+    return $this->belongsTo(driver_taxi::class, 'driver_taxi_id');
 }
 
 }

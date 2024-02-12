@@ -6,9 +6,9 @@ use App\Models\route;
 use App\Models\horaires;
 use App\Models\driver_taxi;
 use Illuminate\Http\Request;
-use App\Models\driver_taxi_horaire;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
+use Psy\Command\WhereamiCommand;
 
 class DriverTaxiController extends Controller
 {
@@ -17,16 +17,17 @@ class DriverTaxiController extends Controller
      */
     public function index()
     {
-        $horaires=horaires::where('created_at','>',now())->get();
-      
-        $hor=array();
-        foreach( $horaires as $item){
+       
           
-            $hor[]=$item;
-        }
-
+        
+    
         $driver = driver_taxi::where('user_id', Auth::id())->first();
-         return view('Chaufeur.index', compact('driver','hor'));
+        if ($driver) {
+            $hor = horaires::where('driver_taxi_id', $driver->id)->get();
+            return view('Chaufeur.index', compact('driver', 'hor'));
+        } else {
+            return view('Chaufeur.index',compact('driver')); 
+        }
 
         }
 
@@ -35,8 +36,8 @@ class DriverTaxiController extends Controller
      */
     public function create()
     {
-        $Routes=route::all();
-        return view('Chaufeur.create',compact('Routes'));
+       
+        return view('Chaufeur.create');
     }
 
     /**
@@ -46,12 +47,10 @@ class DriverTaxiController extends Controller
     {
        $validated=  $request->validate([
            'user_id'=> 'required',
-           'route'=> 'required',
            'image'=> 'required',
             'number_seats' => 'required|integer',
             'typ_vehicle' => 'required|string',
             'matricule' => 'required|integer',
-            'price' => 'required|integer',
             'method_payment' => 'required|in:cart,espase',
             'description' => 'required|string',
         ]);
@@ -65,19 +64,11 @@ class DriverTaxiController extends Controller
             'number_seets'=>$validated['number_seats'],
             'typ_veicl'=>$validated['typ_vehicle'],
             'matricule'=>$validated['matricule'],
-            'route'=>$validated['route'],
-            'price'=>$validated['price'],
             'image'=>$validated['image'],
             'method_payment'=>$validated['method_payment'],
             'description'=>$validated['description'],
         ]);
-       $horires=horaires::all();
-    foreach ($horires as $value) {
-        driver_taxi_horaire::create([
-             'horaire_id'=>$value->id,
-             'driver_taxi_id'=>$driver->id,
-        ]);
-    }
+     
         return redirect(route('Chaufeur.index'));
 
     }

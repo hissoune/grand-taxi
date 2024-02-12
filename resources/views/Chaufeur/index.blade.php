@@ -2,10 +2,25 @@
     @if(isset($driver) && !empty($driver))
         <!-- If $driver is set and not empty -->
         <x-slot name="additionalContent">
+            <div class="container my-5">
+            <div class="flex justify-around my-6 ">
+            <div class="my-5 mx-4"><a href="{{ route('Horaire.create') }}" class="btn bg-blue-500 text-white p-2 rounded">add horaire</a></div>
+           <div class="text-center mt-4 text-3xl"><h3>your horaires</h3></div>
+            <div class="mb-4">
+                <label for="route" class="block text-sm font-medium text-gray-600">votre status</label>
+                <select name="status" required class="mt-1 p-2 border rounded-md w-50">
+                    <option value="disponible">disponible</option>
+                    <option value="in trip">in trip</option>
+                    <option value="out of service">out of service</option>
+                </select>
+            </div>
+        </div>
+    </div>
             <div class="mt-6 container px-6">
-                @foreach ($hor as $item)
-                    @foreach($item->drivert as $driver)
-                        <div class="flex flex-cols-6 justify-between border-black-3 shadow px-6 py-1 h-100">
+
+                @forelse ($hor as $item)
+                
+                        <div class="flex flex-cols-6 justify-between border-black-3 shadow px-6 py-4 my-6 h-100 bg-white">
                             <div>
                                 <h1 class="text-2xl font-bold">{{ $driver->description }}</h1>
                                 <p>{{ $driver->matricule }}</p>
@@ -13,27 +28,33 @@
                             </div>
                             <div>
                                 <h1>{{ $driver->typ_veicl }}</h1>
-                                <h1>{{ $driver->price }}</h1>
+                                <h1>{{ $item->price }}</h1>
                             </div>
                             <div>
                                 <img src="{{ asset('storage/' . $driver->image) }}" width="100px" alt="Image Alt Text">
                             </div>
                             <div>
-                                <h1>{{ $item->created_at }}</h1> <!-- Assuming created_at is a property of $item, not $item->horairs -->
+                                <h1>{{ $item->created_at }}</h1> 
                             </div>
                             <div>
-                                <form action="{{ route('Horaire.update', $item) }}" method="POST">
-                                    @csrf
-                                    @method('PATCH')
-                                    <label for="status">Disponible</label>
-                                    <input type="checkbox" id="status" name="status"  {{ ($item->status == 'Disponible') ? 'checked' : '' }} >
+                                <div>
+                                    <div class="my-3">
+                                <form action="">
+                                    <button class="btn bg-red-500 p-1 rounded ">pus flow</button>
                                 </form>
-                                
-                                
+                            </div>
+                            <div>
+                                <form action="">
+                                    <button class="btn bg-green-500 p-1 px-1 rounded ">  run flow</button>
+                                </form>
+                            </div>
+                            </div>
                             </div>
                         </div>
-                    @endforeach
-                @endforeach
+                        @empty
+                            
+                    fuck you
+                @endforelse
             </div>
         </x-slot>
     @else

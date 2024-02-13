@@ -15,8 +15,14 @@ class horairesController extends Controller
      */
     public function index()
     {
-        $hors = horaires::where('status', 'disponible')->orderBy('created_at', 'desc')->get();
-       
+        $hors = horaires::join('driver_taxis', 'driver_taxis.id', '=', 'horaires.driver_taxi_id')
+        ->where('driver_taxis.status', 'disponible')
+        ->orderBy('horaires.created_at', 'desc')
+        ->select('horaires.*')
+        ->get();
+    
+    
+        //   dd($hors);
        return view('passager.index',compact('hors'));
     }
 

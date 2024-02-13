@@ -21,12 +21,12 @@ class DriverTaxiController extends Controller
           
         
     
-        $driver = driver_taxi::where('user_id', Auth::id())->first();
-        if ($driver) {
-            $hor = horaires::where('driver_taxi_id', $driver->id)->get();
-            return view('Chaufeur.index', compact('driver', 'hor'));
+        $driver_taxi = driver_taxi::where('user_id', Auth::id())->first();
+        if ($driver_taxi) {
+            $hor = horaires::where('driver_taxi_id', $driver_taxi->id)->get();
+            return view('Chaufeur.index', compact('driver_taxi', 'hor'));
         } else {
-            return view('Chaufeur.index',compact('driver')); 
+            return view('Chaufeur.index',compact('driver_taxi')); 
         }
 
         }
@@ -52,7 +52,7 @@ class DriverTaxiController extends Controller
             'typ_vehicle' => 'required|string',
             'matricule' => 'required|integer',
             'method_payment' => 'required|in:cart,espase',
-            'description' => 'required|string',
+            'description' => 'required|string|',
         ]);
         if($request->hasFile('image')){
             $validated['image']=$request->file('image')->store('driveimges','public');
@@ -84,16 +84,27 @@ class DriverTaxiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(driver_taxi $item)
+    public function edit(driver_taxi $driver_taxi)
     {
-        dd($item);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, driver_taxi $item)
+    public function update(Request $request, driver_taxi $Chaufeur)
     {
+        
+        if ($Chaufeur) {
+            $Chaufeur->status = $request->input('status');
+            $Chaufeur->save();
+        
+            return redirect()->route('Chaufeur.index')->with('success', 'Status updated successfully');
+        } else {
+            return redirect()->route('Chaufeur.index')->with('error', 'Driver not found');
+        }
+        
+
+
     }
 
     /**

@@ -15,9 +15,13 @@ class horaires extends Model
         'driver_taxi_id',
     ];
 
-    public function drivert()
+    public function driver_taxi()
 {
-    return $this->belongsTo(driver_taxi::class, 'driver_taxi_id');
+    return $this->belongsTo(driver_taxi::class,'driver_taxi_id');
 }
+public function routes()
+    {
+        return $this->belongsTo(route::class, 'route');
+    } 
 
 }

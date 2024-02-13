@@ -29,6 +29,9 @@
                     <x-nav-link :href="route('passager.index')" :active="request()->routeIs('passager.index')">
                         {{ __('reserver taxi') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('Reservation.index')" :active="request()->routeIs('passager.index')">
+                        {{ __('votre reservations') }}
+                    </x-nav-link>
                     @endrole
                 </div>
             </div>

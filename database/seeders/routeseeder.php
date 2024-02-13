@@ -29,7 +29,7 @@ class routeseeder extends Seeder
                 DB::table('routes')->insert([
                     'startcity_id' => $startCityId,
                     'endcity_id' => $endCityId,
-                    'distance' => rand(100, 500), // Adjust as needed
+                    'distance' => rand(100, 500), 
                     'duration' => $this->generateRandomTime(),
                     'created_at' => now(),
                     'updated_at' => now(),

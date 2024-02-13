@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\reservationn;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationnController extends Controller
 {
@@ -12,7 +13,9 @@ class ReservationnController extends Controller
      */
     public function index()
     {
-        //
+        $reservation = reservationn::where('users_id', Auth::id())->get();
+    //    dd( $reservation);
+      return view('reservation.index',compact('reservation'));
     }
 
     /**
@@ -27,9 +30,15 @@ class ReservationnController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
-    }
+{
+    reservationn::create([
+        'horaire_id' => $request->input('horaire_id'),
+        'users_id' => Auth::id(),
+    ]);
+
+    return redirect(route('Reservation.index'));
+}
+
 
     /**
      * Display the specified resource.

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\dasboardController;
 use App\Http\Controllers\horairesController;
 use App\Http\Controllers\DriverTaxiController;
 use App\Http\Controllers\ReservationnController;
@@ -21,9 +22,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard',[dasboardController::class,'index'] )->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'role:Chaufeur'])->group(function () {
 Route::resource('/Chaufeur',DriverTaxiController::class);
@@ -37,6 +36,9 @@ Route::resource('/Reservation',ReservationnController::class);
 Route::middleware(['auth', 'role:passager'])->group(function () {
     Route::resource('/passager',horairesController::class);
     Route::resource('/Reservation',ReservationnController::class);
+    Route::get('/searsh',[dasboardController::class,'search'] )->name('search');
+
+
 
     // Route::resource('/Horaire',horairesController::class);
     });

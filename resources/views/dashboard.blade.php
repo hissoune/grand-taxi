@@ -1,17 +1,31 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+   
+@role('Chaufeur')
+fffffffffffffffffffffffff
+@endrole
+@role('passager')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
-    </div>
+<div></div>
+<form action="{{ route('search') }}" method="GET">
+    
+    <label for="route">Route:</label>
+    <select name="route" id="route">
+        @foreach($route as $item)
+        <option value="{{ $item->id }}">{{ $item->startcity->name }} to {{ $item->endcity->name }}</option>
+        @endforeach
+       
+    </select>
+
+    <label for="date">Date:</label>
+    <input type="date" name="date" id="date" required>
+
+    <button type="submit">Search</button>
+</form>
+@if(isset($hors))
+    <x-search :hores='$hors' />
+@endif
+
+
+@endrole
+   
 </x-app-layout>

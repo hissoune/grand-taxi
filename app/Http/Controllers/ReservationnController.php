@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\reservationn;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ReservationnController extends Controller
@@ -13,7 +14,9 @@ class ReservationnController extends Controller
      */
     public function index()
     {
-        $reservation = reservationn::where('users_id', Auth::id())->get();
+        $reservation = reservationn::where('users_id', Auth::id())->where('cancelled',false)->get();
+        
+        
     //    dd( $reservation);
       return view('reservation.index',compact('reservation'));
     }
@@ -59,16 +62,22 @@ class ReservationnController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, reservationn $reservationn)
+    public function update(Request $request, reservationn $Reservation)
     {
-        //
+        $Reservation->update(['cancelled' => true]);
+        return redirect(route('Reservation.index'));
+
     }
+    
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(reservationn $reservationn)
+    public function destroy(reservationn $Reservation)
     {
-        //
+    //    $Reservation->delete();
+    //    $Reservation->save();
+    //    return redirect(route('Reservation.index'));
+
     }
 }

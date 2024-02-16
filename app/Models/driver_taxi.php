@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\rate;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,6 +24,9 @@ class driver_taxi extends Model
         'description',
         'image',
     ];
+   
+
+  
 
     public function user()
     {
@@ -32,6 +36,10 @@ class driver_taxi extends Model
     public function horairs()
     {
         return $this->hasMany(horaires::class,'driver_taxi_id');
+    }
+    public function rate()
+    {
+        return $this->hasMany(rate::class,'driver_taxi_id');
     }
     
 }

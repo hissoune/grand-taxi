@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('reservationns', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('horaire_id')->constrained('horaires');
-            $table->foreignId('users_id')->constrained('users');
+            $table->foreignId('horaire_id')->constrained('horaires')->cascade('delete');
+            $table->foreignId('users_id')->constrained('users')->cascade('delete');
             $table->boolean('cancelled')->default(false);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

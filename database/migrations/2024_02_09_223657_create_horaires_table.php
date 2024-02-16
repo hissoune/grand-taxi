@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('horaires', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('route')->constrained('routes');
-            $table->foreignId('driver_taxi_id')->constrained('driver_taxis');
+            $table->foreignId('route')->constrained('routes')->cascade('delete');
+            $table->foreignId('driver_taxi_id')->constrained('driver_taxis')->cascade('delete');
             $table->integer('price');
+            $table->boolean('disable')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

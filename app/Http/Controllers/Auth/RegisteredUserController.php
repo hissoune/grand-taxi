@@ -34,14 +34,20 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'image'=> ['required'],
             'role'=> ['required','in:1,2'],
         ]);
         $role = ($request->role == 1) ? 'passager' : 'Chaufeur';
-
+        if ($request->hasFile('image')) {
+            $uploadedFile = $request->file('image');
+            $filePath = $uploadedFile->store('userimages','public');
+        }
+        // dd($filePath);
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'image' => $filePath,
         ]);
          $user->assignRole($role);
 

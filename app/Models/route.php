@@ -18,4 +18,10 @@ class route extends Model
     {
         return $this->belongsTo(city::class, 'endcity_id');
     }
+    public function horaires()
+    {
+        return $this->hasMany(horaires::class,'route');
+    } 
+
+
 }

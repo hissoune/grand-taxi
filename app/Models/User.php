@@ -22,6 +22,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'image',
         'password',
     ];
 
@@ -44,4 +45,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function reservation()
+    {
+        return $this->hasMany(reservationn::class, 'users_id');
+    }
+    public function driver()
+    {
+        return $this->belongsTo(driver_taxi::class, 'user_id');
+    }
+
 }

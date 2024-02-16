@@ -37,22 +37,39 @@
                             <div>
                                 <img src="{{ asset('storage/' . $driver_taxi->image) }}" width="100px" alt="Image Alt Text">
                             </div>
-                            <div>
-                                <h1>{{ $item->created_at }}</h1> 
+                            <div  class=" flex-column items-center justify-between">
+                                <div><h1>{{ $item->created_at }}</h1> </div>
+                                <div>
+                             <h1>reservations ({{ $item->reservations->count() }}/{{ $driver_taxi->number_seets }})</h1> 
                             </div>
                             <div>
-                                <div>
-                                    <div class="my-3">
-                                <form action="">
+                                @if ($item->reservations->count() == $driver_taxi->number_seets )
+                                <h1 class="bg-yellow-700 p-3">this trip is full</h1>
+                                @endif
+                            </div>
+                            </div>
+                            <div class="flex flex-column items-center">
+                               
+                                    @if($item->disable==false)
+                                     
+                                   
+                                    <div">
+                                <form action="{{ route('Horaire.update',$item) }}" method="post">
+                                    @csrf
+                                    @method('put')
                                     <button class="btn bg-red-500 p-1 text-white rounded ">pus flow</button>
                                 </form>
                             </div>
+                            @else  
                             <div>
-                                <form action="">
+                                <form action="{{ route('Horaire.update',$item) }}" method="post">
+                                    @csrf
+                                    @method('put')
                                     <button class="btn bg-green-500 p-1 text-white px-1 rounded ">  run flow</button>
                                 </form>
                             </div>
-                            </div>
+                            @endif
+                         
                             </div>
                         </div>
                         @empty

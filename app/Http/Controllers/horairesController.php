@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\route;
 use App\Models\horaires;
-use Illuminate\Http\Request;
 use App\Models\driver_taxi;
+use App\Models\reservationn;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class horairesController extends Controller
@@ -17,6 +18,8 @@ class horairesController extends Controller
     {
         $hors = horaires::join('driver_taxis', 'driver_taxis.id', '=', 'horaires.driver_taxi_id')
         ->where('driver_taxis.status', 'disponible')
+        ->where('driver_taxis.deleted_at',null)
+        ->where('horaires.disable',false)
         ->orderBy('horaires.created_at', 'desc')
         ->select('horaires.*')
         ->get();
@@ -81,13 +84,24 @@ class horairesController extends Controller
    // horairesController.php
 public function update(Request $request, horaires $Horaire)
 {
-//     $horcreated=$Horaire->created_at;
-//     $hordvr=driver_taxi_horaire::where('horaires.created_at','=',$horcreated)  
-//      ->join('horaires', 'horaires.id', '=', 'driver_taxi_horaires.horaire_id')->get();
-// dd($hordvr);
-//     $hordvr->update(['status' => $request->has('status') ? 'Disponible' : 'out of service']);
+  
+    if($Horaire->disable==false){
+        $Horaire->disable=true;
+        $Horaire->save();
+        $reservations=reservationn::where('horaire_id',$Horaire->id)->get();
+        foreach($reservations as $reserv){
+            $reserv->delete();
+            // $reserv->save();
+        }
+        return redirect(route('Chaufeur.index'));
+    }else{
+        $Horaire->disable=false;
+        $Horaire->created_at=now();
 
-//     return redirect()->back(); 
+        $Horaire->save();
+        return redirect(route('Chaufeur.index'));
+    }
+
 }
 
 

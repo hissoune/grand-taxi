@@ -14,6 +14,7 @@ class ReservationnController extends Controller
      */
     public function index()
     {
+        // dd(now());
         $reservation = reservationn::where('users_id', Auth::id())->where('cancelled',false)->get();
         
         
@@ -64,8 +65,7 @@ class ReservationnController extends Controller
      */
     public function update(Request $request, reservationn $Reservation)
     {
-        $Reservation->update(['cancelled' => true]);
-        return redirect(route('Reservation.index'));
+       
 
     }
     
@@ -75,9 +75,10 @@ class ReservationnController extends Controller
      */
     public function destroy(reservationn $Reservation)
     {
-    //    $Reservation->delete();
-    //    $Reservation->save();
-    //    return redirect(route('Reservation.index'));
+        
+        
+       $Reservation->delete();
+        return redirect(route('Reservation.index'));
 
     }
 }

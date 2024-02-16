@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\route;
 use App\Models\horaires;
 use App\Models\driver_taxi;
+use App\Models\reservationn;
 use Illuminate\Http\Request;
+use Psy\Command\WhereamiCommand;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
-use Psy\Command\WhereamiCommand;
 
 class DriverTaxiController extends Controller
 {
@@ -24,6 +25,11 @@ class DriverTaxiController extends Controller
         $driver_taxi = driver_taxi::where('user_id', Auth::id())->first();
         if ($driver_taxi) {
             $hor = horaires::where('driver_taxi_id', $driver_taxi->id)->get();
+            // $reservations=reservationn::join('horaires','horaire_id','=','horaires.id')
+            // ->join('driver_taxis','horaires.driver_taxi_id','=','driver_taxis.id')
+            // ->where('driver_taxi_id',$driver_taxi->id)->get();
+            // $reserv=count($reservations);
+           
             return view('Chaufeur.index', compact('driver_taxi', 'hor'));
         } else {
             return view('Chaufeur.index',compact('driver_taxi')); 
@@ -48,7 +54,7 @@ class DriverTaxiController extends Controller
        $validated=  $request->validate([
            'user_id'=> 'required',
            'image'=> 'required',
-            'number_seats' => 'required|integer',
+            'number_seats' => 'required|integer|max:6',
             'typ_vehicle' => 'required|string',
             'matricule' => 'required|integer',
             'method_payment' => 'required|in:cart,espase',

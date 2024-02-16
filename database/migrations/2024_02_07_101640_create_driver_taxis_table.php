@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('driver_taxis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('User_id')->constrained('users');
+            $table->foreignId('User_id')->constrained('users')->cascade('delete');
             $table->unique('User_id');
             $table->enum('status', ['disponible', 'in trip', 'out of service'])->default('out of service');
             $table->integer('number_seets');

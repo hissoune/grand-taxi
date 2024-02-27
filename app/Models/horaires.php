@@ -8,26 +8,36 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class horaires extends Model
 {
-    use HasFactory,SoftDeletes;
-    protected $fillable=[
-      
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
         'route',
         'price',
         'driver_taxi_id',
     ];
-   
+
+    protected static function boot()
+{
+    parent::boot();
+
+    static::deleting(function ($horaires) {
+        $horaires->reservations()->delete();
+    });
+}
+
 
     public function driver_taxi()
-{
-    return $this->belongsTo(driver_taxi::class,'driver_taxi_id');
-}
-public function routes()
+    {
+        return $this->belongsTo(driver_taxi::class, 'driver_taxi_id');
+    }
+
+    public function routes()
     {
         return $this->belongsTo(route::class, 'route');
-    } 
+    }
+
     public function reservations()
     {
         return $this->hasMany(reservationn::class, 'horaire_id');
     }
-
 }

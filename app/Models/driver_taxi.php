@@ -10,10 +10,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class driver_taxi extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
-    
         'User_id',
         'route',
         'number_seets',
@@ -24,9 +23,15 @@ class driver_taxi extends Model
         'description',
         'image',
     ];
-   
 
-  
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($driver_taxi) {
+            $driver_taxi->horairs->each->delete();
+        });
+    }
 
     public function user()
     {
@@ -35,11 +40,11 @@ class driver_taxi extends Model
 
     public function horairs()
     {
-        return $this->hasMany(horaires::class,'driver_taxi_id');
+        return $this->hasMany(horaires::class, 'driver_taxi_id');
     }
+
     public function rate()
     {
-        return $this->hasMany(rate::class,'driver_taxi_id');
+        return $this->hasMany(rate::class, 'driver_taxi_id');
     }
-    
 }

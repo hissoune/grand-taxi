@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\city;
+use App\Models\User;
 use App\Models\route;
 use App\Models\horaires;
+use App\Models\driver_taxi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -12,6 +15,11 @@ class dasboardController extends Controller
 {
     public function index()
     {
+        $citys=city::all();
+        $passagers = User::whereHas('roles', function ($query) {
+            $query->where('name', 'passager');
+       })->get();
+       $drivers = driver_taxi::where('deleted_at',null)->get();
         $routes=route::all();
         $horrs = horaires::select('horaires.*', DB::raw('COUNT(reservationns.id) as reservation_count'))
         ->join('reservationns', 'reservationns.horaire_id', '=', 'horaires.id')
@@ -24,7 +32,7 @@ class dasboardController extends Controller
         ->get();
   
         
-            return view('dashboard',compact('routes','horrs'));
+            return view('dashboard',compact('routes','horrs','passagers','drivers','citys'));
     }
     public function search(Request $request)
     {

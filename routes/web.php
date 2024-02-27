@@ -64,6 +64,9 @@ Route::middleware(['auth', 'role:passager'])->group(function () {
     
          
         Route::resource('/admin',AdminController::class);
+        Route::get('/horairs',[AdminController::class,'horairs'])->name('admin.horairs');
+        Route::get('/routes',[AdminController::class,'routes'])->name('admin.routes');
+        Route::delete('/horairs/{item}',[AdminController::class,'delethor'])->name('admin.delethor');
 
         
         

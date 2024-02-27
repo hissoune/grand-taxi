@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\rate;
 use App\Models\User;
+use App\Models\route;
 use App\Models\horaires;
 use App\Models\driver_taxi;
 use App\Models\reservationn;
@@ -24,7 +25,23 @@ class AdminController extends Controller
       
         return view('admin.index',compact('passagers','drivers'));
     }
-
+    public function horairs()
+    {
+      $horairs=horaires::all();
+      
+        return view('admin.horairs',compact('horairs'));
+    }
+    public function routes()
+    {
+      $routes=route::paginate(10);
+      
+        return view('admin.routes',compact('routes'));
+    }
+    public function delethor(horaires $item)
+    {
+        $item->delete();
+           return  redirect(route('admin.index'));
+}
     /**
      * Show the form for creating a new resource.
      */

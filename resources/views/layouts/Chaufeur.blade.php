@@ -15,7 +15,7 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased bg-gray-500 min-h-screen">
+<body class="font-sans antialiased bg-white min-h-screen">
  @include('layouts.navigation')
 
     <!-- Page Heading -->
@@ -47,7 +47,7 @@
     {{ $additionalContent }}
 </main>
 <footer>
-    <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
+    <div class="w-full pt-16 pb-6 bg-gray-500  text-sm text-center md:text-left fade-in">
         <a class="text-white no-underline hover:no-underline" href="#">&copy; App 2020</a>
         - Template by
       </div>

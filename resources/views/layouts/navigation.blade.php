@@ -17,7 +17,13 @@
                     </x-nav-link>
                     @role('Admin')
                     <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
-                        {{ __('admin') }}
+                        {{ __('users') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.horairs')" :active="request()->routeIs('admin.horairs')">
+                        {{ __('horairs') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.routes')" :active="request()->routeIs('admin.routes')">
+                        {{ __('routes') }}
                     </x-nav-link>
                     @endrole
                     @role('Chaufeur')

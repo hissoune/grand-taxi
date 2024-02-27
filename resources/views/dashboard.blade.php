@@ -1,7 +1,82 @@
 <x-app-layout>
+    @role('Admin')
+        <x-slot name="slot">
+   
+<!---===================== FIRST ROW CONTAINING THE  STATS CARD STARTS HERE =============================-->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-white py-10 px-14">
+
+    <!-- First Stats Container -->
+    <div class="container mx-auto mb-4">
+        <div class="w-full bg-white max-w-xs mx-auto rounded-sm overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
+            <div class="h-20 bg-red-400 flex items-center justify-center">
+                <p class="text-white text-lg">PASSAGERS</p>
+            </div>
+            <div class="flex justify-center pt-6 mb-2 text-sm text-gray-600">
+                <!-- Your content for the first column goes here -->
+            </div>
+            <p class="py-4 text-3xl text-center">{{ $passagers->count() }}</p>
+        </div>
+    </div>
+
+    <!-- Second Stats Container -->
+    <div class="container mx-auto mb-4">
+        <div class="w-full bg-white max-w-xs mx-auto rounded-sm overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
+            <div class="h-20 bg-blue-500 flex items-center justify-center">
+                <p class="text-white text-lg">DRIVERS</p>
+            </div>
+            <div class="flex justify-center pt-6 mb-2 text-sm text-gray-600">
+                <!-- Your content for the second column goes here -->
+            </div>
+            <p class="py-4 text-3xl text-center">{{ $drivers->count() }}</p>
+        </div>
+    </div>
+
+    <!-- Third Stats Container -->
+    <div class="container mx-auto mb-4">
+        <div class="w-full bg-white max-w-xs mx-auto rounded-sm overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
+            <div class="h-20 bg-purple-400 flex items-center justify-center">
+                <p class="text-white text-lg">ROUTES</p>
+            </div>
+            <div class="flex justify-center pt-6 mb-2 text-sm text-gray-600">
+                <!-- Your content for the third column goes here -->
+            </div>
+            <p class="py-4 text-3xl text-center">{{ $routes->count() }}</p>
+        </div>
+    </div>
+
+    <!-- Fourth Stats Container -->
+    <div class="container mx-auto mb-4">
+        <div class="w-full bg-white max-w-xs mx-auto rounded-sm overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
+            <div class="h-20 bg-purple-900 flex items-center justify-center">
+                <p class="text-white text-lg">SCHEDULES</p>
+            </div>
+            <div class="flex justify-center pt-6 mb-2 text-sm text-gray-600">
+                <!-- Your content for the fourth column goes here -->
+            </div>
+            <p class="py-4 text-3xl text-center">{{ $horrs->count() }}</p>
+        </div>
+    </div>
+
+    <!-- Fifth Stats Container -->
+    <div class="container mx-auto mb-4">
+        <div class="w-full bg-white max-w-xs mx-auto rounded-sm overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
+            <div class="h-20 bg-purple-900 flex items-center justify-center">
+                <p class="text-white text-lg">CITIES</p>
+            </div>
+            <div class="flex justify-center pt-6 mb-2 text-sm text-gray-600">
+                <!-- Your content for the fifth column goes here -->
+            </div>
+            <p class="py-4 text-3xl text-center">{{ $citys->count() }}</p>
+        </div>
+    </div>
+
+</div>
+
+        </x-slot>
+    @endrole
     @role('Chaufeur')
         <x-slot name="slot">
-            <!-- Your content for the Chaufeur role -->
+           
         </x-slot>
     @endrole
 

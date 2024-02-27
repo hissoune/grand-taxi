@@ -57,7 +57,7 @@
                                 <form action="{{ route('Horaire.update',$item) }}" method="post">
                                     @csrf
                                     @method('put')
-                                    <button class="btn bg-red-500 p-1 text-white rounded ">pus flow</button>
+                                    <button class="btn bg-red-500 p-1 text-white rounded ">pus</button>
                                 </form>
                             </div>
                             @else  
@@ -65,7 +65,7 @@
                                 <form action="{{ route('Horaire.update',$item) }}" method="post">
                                     @csrf
                                     @method('put')
-                                    <button class="btn bg-green-500 p-1 text-white px-1 rounded ">  run flow</button>
+                                    <button class="btn bg-green-500 p-1 text-white px-1 rounded ">  run</button>
                                 </form>
                             </div>
                             @endif
@@ -74,7 +74,14 @@
                         </div>
                         @empty
                             
-                    fuck you
+                        <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)"
+                            class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                           <ul>
+                               
+                                   <li>you have no horairs now </li>
+                             
+                           </ul>
+                       </div>
                 @endforelse
             </div>
         </x-slot>

@@ -15,7 +15,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-500">
+    <div class="min-h-screen bg-white">
         @include('layouts.navigation')
 
         <!-- Page Heading -->
@@ -50,7 +50,7 @@
             {{ $slot }}
         </main>
         <footer>
-            <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
+            <div class="w-full bg-gray-500  pt-16 pb-6 text-sm text-center md:text-left fade-in">
                 <a class="text-white no-underline hover:no-underline" href="#">&copy; App 2020</a>
                 - Template by
               </div>
